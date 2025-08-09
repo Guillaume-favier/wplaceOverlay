@@ -1,5 +1,5 @@
 (async () => {
-	let Turl = "192.168.1.241:8000/guillaume-favier.github.io/wplaceOverlay"
+	let Turl = "guillaume-favier.github.io/wplaceOverlay"
 	let tilesconfig = await (await fetch("https://" + Turl + "/config.json", {cache: 'reload'})).json();
 	console.log(tilesconfig);
 	fetch = new Proxy(fetch, {
