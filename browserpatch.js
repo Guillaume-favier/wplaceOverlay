@@ -1,5 +1,6 @@
 (async () => {
-	let tilesconfig = await (await fetch("http://localhost:8000/config.json", {cache: 'reload'})).json();
+	let Turl = "192.168.1.241:8000/guillaume-favier.github.io/wplaceOverlay"
+	let tilesconfig = await (await fetch("https://" + Turl + "/config.json", {cache: 'reload'})).json();
 	console.log(tilesconfig);
 	fetch = new Proxy(fetch, {
 		apply: (target, thisArg, argList) => {
@@ -26,8 +27,8 @@
 				}
 
 				if (url.hostname === "backend.wplace.live" && match) {
-					url.host = "localhost:8000";
-					url.protocol = "http";
+					url.host = Turl;
+					url.protocol = "https";
 					console.log("Modified URL:", url);
 
 					if (typeof argList[0] === "object") {
