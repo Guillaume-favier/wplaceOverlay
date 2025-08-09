@@ -70,9 +70,15 @@ def updateImage():
 
 # Override server class to send allow-CORS header
 class CORSHandler(http.server.SimpleHTTPRequestHandler):
-    def send_response(self, *args, **kwargs):
-        http.server.SimpleHTTPRequestHandler.send_response(self, *args, **kwargs)
+    def end_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+        super().end_headers()
+
+    def do_OPTIONS(self):
+        self.send_response(200, "ok")
+        self.end_headers()
 
 with socketserver.TCPServer(("", PORT), CORSHandler) as httpd:
     while True:
